@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <PackageId>MSBuild.SitemapGenerator</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>axiom-nz</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/axiom-nz/MSBuild.SitemapGenerator</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/axiom-nz/MSBuild.SitemapGenerator/refs/heads/main/LICENSE</PackageLicenseUrl>
+    <PackageTags>msbuild sitemap sitemap.xml</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.14.28" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="../README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+</Project>
