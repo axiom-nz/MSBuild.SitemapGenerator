@@ -17,7 +17,7 @@ public class GenerateSitemap : Microsoft.Build.Utilities.Task
     {
         try
         {
-            PublishDir = PublishDir.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+            PublishDir = Path.GetFullPath(PublishDir.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar);
 
             if (!Directory.Exists(PublishDir))
             {
@@ -25,13 +25,19 @@ public class GenerateSitemap : Microsoft.Build.Utilities.Task
                 return false;
             }
 
-            Log.LogMessage(MessageImportance.High, $"Generating sitemap V3 at {DateTime.UtcNow:u} for: {PublishDir}");
+            Log.LogMessage(MessageImportance.High, $"Generating sitemap at {DateTime.UtcNow:u}");
+            Log.LogMessage(MessageImportance.High, $"Full Search Path: {PublishDir}");
             Log.LogMessage(MessageImportance.High, $"BaseUrl: {BaseUrl}");
             Log.LogMessage(MessageImportance.High, $"Rules count: {Rules?.Length ?? 0}");
 
             string[] htmlFiles = Directory.GetFiles(PublishDir, "*.html", SearchOption.AllDirectories);
+            Log.LogMessage(MessageImportance.High, $"Found {htmlFiles.Length} HTML files total in {PublishDir}");
+
+            foreach (var file in htmlFiles)
+            {
+                Log.LogMessage(MessageImportance.Low, $" - {file}");
+            }
             List<string> urls = [];
-            Log.LogMessage(MessageImportance.High, $"Found {htmlFiles.Length} HTML files.");
 
             List<SitemapRuleRule> rules = Rules?.Select(r => new SitemapRuleRule
             {

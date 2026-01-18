@@ -1,7 +1,7 @@
 <Project>
   <UsingTask TaskName="MSBuild.SitemapGenerator.GenerateSitemap" AssemblyFile="$(MSBuildThisFileDirectory)../lib/netstandard2.0/MSBuild.SitemapGenerator.dll" />
 
-  <Target Name="GenerateSitemapAfterPublish" AfterTargets="Publish">
+  <Target Name="GenerateSitemapAfterPublish" AfterTargets="Publish;AfterPublish" DependsOnTargets="$(SitemapDependsOnTargets)">
     <PropertyGroup>
       <RelativeWwwRootPath Condition="'$(RelativeWwwRootPath)' == ''">wwwroot</RelativeWwwRootPath>
     </PropertyGroup>
@@ -12,7 +12,7 @@
 
     <Error Condition="'$(SitemapBaseUrl)' == ''" Text="SitemapBaseUrl must be specified in the project file." />
 
-    <Message Importance="High" Text="Running GenerateSitemap task... PublishDir: '$(PublishDir)$(RelativeWwwRootPath)/', BaseUrl: '$(SitemapBaseUrl)'" />
+    <Message Importance="High" Text="Running MSBuild.SitemapGenerator task... SearchPath: '$(PublishDir)$(RelativeWwwRootPath)/', DependsOnTargets: '$(SitemapDependsOnTargets)'" />
     <GenerateSitemap PublishDir="$(PublishDir)$(RelativeWwwRootPath)/" BaseUrl="$(SitemapBaseUrl)" Rules="@(_SitemapRules)" />
   </Target>
 </Project>
