@@ -10,7 +10,7 @@
   
   <PropertyGroup>
     <PackageId>MSBuild.SitemapGenerator</PackageId>
-    <Version>0.2.0</Version>
+    <Version>0.2.1</Version>
     <Authors>axiom-nz</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
