@@ -10,12 +10,12 @@
   
   <PropertyGroup>
     <PackageId>MSBuild.SitemapGenerator</PackageId>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <Authors>axiom-nz</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/axiom-nz/MSBuild.SitemapGenerator</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/axiom-nz/MSBuild.SitemapGenerator/refs/heads/main/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
     <PackageTags>msbuild sitemap sitemap.xml</PackageTags>
   </PropertyGroup>
 
@@ -24,6 +24,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <None Include="build/MSBuild.SitemapGenerator.targets" Pack="true" PackagePath="build" />
     <None Include="../README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 

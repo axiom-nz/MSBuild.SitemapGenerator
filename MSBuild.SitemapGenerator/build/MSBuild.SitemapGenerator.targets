@@ -1,5 +1,5 @@
 <Project>
-  <UsingTask TaskName="DeckScout.Sitemap.Build.GenerateSitemapV3" AssemblyFile="$(MSBuildThisFileDirectory)../bin/$(Configuration)/netstandard2.0/DeckScout.Sitemap.Build.dll" />
+  <UsingTask TaskName="MSBuild.SitemapGenerator.GenerateSitemap" AssemblyFile="$(MSBuildThisFileDirectory)../lib/netstandard2.0/MSBuild.SitemapGenerator.dll" />
 
   <Target Name="GenerateSitemapAfterPublish" AfterTargets="Publish">
     <ItemGroup>
@@ -8,7 +8,7 @@
 
     <Error Condition="'$(SitemapBaseUrl)' == ''" Text="SitemapBaseUrl must be specified in the project file." />
 
-    <Message Importance="High" Text="Running GenerateSitemap task... PublishDir: '$(PublishDir)', BaseUrl: '$(SitemapBaseUrl)'" />
-    <GenerateSitemap PublishDir="$(PublishDir)$(RelativeWwwRootPath)/" BaseUrl="$(SitemapBaseUrl)" Rules="@(_SitemapRules)" />
+    <Message Importance="High" Text="Running GenerateSitemap task... PublishDir: '$(PublishDir)wwwroot/', BaseUrl: '$(SitemapBaseUrl)'" />
+    <GenerateSitemap PublishDir="$(PublishDir)wwwroot/" BaseUrl="$(SitemapBaseUrl)" Rules="@(_SitemapRules)" />
   </Target>
 </Project>
