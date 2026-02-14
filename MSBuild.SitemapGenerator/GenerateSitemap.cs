@@ -13,6 +13,8 @@ public class GenerateSitemap : Microsoft.Build.Utilities.Task
 
     public ITaskItem[]? Rules { get; set; }
 
+    private static int maxUrlCount = 50_000;
+
     public override bool Execute()
     {
         try
@@ -68,17 +70,20 @@ public class GenerateSitemap : Microsoft.Build.Utilities.Task
             XDocument sitemap = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XElement(ns + "urlset",
-                    urls.Select(url => {
-                        string path = new Uri(url).AbsolutePath.ToLowerInvariant();
-                        SitemapRuleRule? rule = rules.FirstOrDefault(r => path.StartsWith(r.Prefix));
-                        
-                        return new XElement(ns + "url",
-                            new XElement(ns + "loc", url),
-                            new XElement(ns + "lastmod", DateTime.UtcNow.ToString("yyyy-MM-dd")),
-                            new XElement(ns + "changefreq", rule?.ChangeFreq ?? "daily"),
-                            new XElement(ns + "priority", rule?.Priority ?? GetDefaultPriority(path))
-                        );
-                    })
+                    urls
+                        .Distinct()
+                        .Take(maxUrlCount)
+                        .Select(url => {
+                            string path = new Uri(url).AbsolutePath.ToLowerInvariant();
+                            SitemapRuleRule? rule = rules.FirstOrDefault(r => path.StartsWith(r.Prefix));
+                            
+                            return new XElement(ns + "url",
+                                new XElement(ns + "loc", url),
+                                new XElement(ns + "lastmod", DateTime.UtcNow.ToString("yyyy-MM-dd")),
+                                new XElement(ns + "changefreq", rule?.ChangeFreq ?? "daily"),
+                                new XElement(ns + "priority", rule?.Priority ?? GetDefaultPriority(path))
+                            );
+                        })
                 )
             );
 
